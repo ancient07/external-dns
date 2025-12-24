@@ -18,7 +18,9 @@ package aws
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
+	"net/http"
 
 	awsv2 "github.com/aws/aws-sdk-go-v2/aws"
 
@@ -83,6 +85,8 @@ func newV2Config(awsConfig AWSSessionConfig) (awsv2.Config, error) {
 			return retry.AddWithMaxAttempts(retry.NewStandard(), awsConfig.APIRetries)
 		}),
 		config.WithSharedConfigProfile(awsConfig.Profile),
+		config.WithHTTPClient(&http.Client{Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}),
 		config.WithAPIOptions(GetInstrumentationMiddlewares()),
 	}
 

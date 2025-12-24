@@ -491,7 +491,7 @@ func (p *AWSProvider) records(ctx context.Context, zones map[string]*profiledZon
 
 		paginator := route53.NewListResourceRecordSetsPaginator(client, &route53.ListResourceRecordSetsInput{
 			HostedZoneId: z.zone.Id,
-			MaxItems:     aws.Int32(route53PageSize),
+			//MaxItems:     aws.Int32(route53PageSize),
 		})
 
 		for paginator.HasMorePages() {

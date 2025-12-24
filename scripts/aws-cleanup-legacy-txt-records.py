@@ -109,7 +109,7 @@ def records(config: Config) -> None:
     try:
         params = {
             'HostedZoneId': config.zone_id,
-            'MaxItems': str(MAX_ITEMS),
+            # 'MaxItems': str(MAX_ITEMS),
         }
         dns_in_iteration = r53client.list_resource_record_sets(**params)
         elements = dns_in_iteration['ResourceRecordSets']
@@ -127,7 +127,7 @@ def records(config: Config) -> None:
             dns_in_iteration = r53client.list_resource_record_sets(
                 HostedZoneId= config.zone_id,
                 StartRecordName= dns_in_iteration['NextRecordName'],
-                MaxItems= str(MAX_ITEMS),
+                #MaxItems= str(MAX_ITEMS),
             )
             elements = dns_in_iteration['ResourceRecordSets']
             for el in elements:
